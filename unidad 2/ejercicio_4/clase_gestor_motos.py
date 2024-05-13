@@ -11,10 +11,11 @@ class gestor_motos:
             ymoto=moto(fila[0],fila[1],fila[2],int(fila[3]))
             self.__lista_moto.append(ymoto)
     def buscar_moto(self,patente):
+        aux=-1
         for zmoto in self.__lista_moto:
             if patente==zmoto.get_pat():
-                return 1
-        return -1
+                aux= 1
+        return aux
     def cant_motos(self):
         return len(self.__lista_moto)
     def mostrar_datos_conductor(self,patente):

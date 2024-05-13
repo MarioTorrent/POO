@@ -33,9 +33,7 @@ class gestor_cliente:
             print(f"saldo actualizado {self.__lista_clientes[i].get_sald()}")
     def mostrar_ap_nom(self,xdni):
         i=0
-        while i<len(self.__lista_clientes):
-            if self.__lista_clientes[i].get_dni()==xdni:
-                print (f"el cliente {self.__lista_clientes[i]} tuvo movimientos en el mes de abril")
-                return()
-            else:
-                i+=1
+        while i<len(self.__lista_clientes) and self.__lista_clientes[i].get_dni()!=xdni:
+            i+=1
+        if i<len(self.__lista_clientes):
+            print (f"el cliente {self.__lista_clientes[i]} tuvo movimientos en el mes de abril")    

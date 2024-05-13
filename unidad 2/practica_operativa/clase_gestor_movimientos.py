@@ -27,9 +27,10 @@ class gestor_movimientos:
                 print(xmov)
         return xsaldo
     def buscar(self,xnum):
+        aux=-1
         for xmov in self.__arreglo_movi:
             if xmov.get_num_cuenta()==xnum:
-                return 1
-        return -1
+                aux=1
+        return aux
     def ordenar(self):
         self.__arreglo_movi=np.sort(self.__arreglo_movi)
