@@ -33,8 +33,7 @@ class edificio:
             if xnom==xdepto.get_nom():
                 sup_total=self.get_sup_total()
                 sup_depto=xdepto.get_sup()
-                aux=sup_depto*sup_total
-                print(f"la superficie total cubierta de su departamento es: {sup_depto}\n y el porcentaje que representa de la superficie total del edificio es: {aux/100}%")
+                print(f"la superficie total cubierta de su departamento es: {sup_depto}\n y el porcentaje que representa de la superficie total del edificio es: {(sup_depto*100)/sup_total}%")
     def golden_deptos(self,xpiso,cont):
         for xdepto in self.__deptos:
             if xpiso==xdepto.get_num_piso() and xdepto.get_dormi()==3 and xdepto.get_banios()>1:
