@@ -7,7 +7,7 @@ class gestor_movimientos:
         self.__arreglo_movi=np.array([])
     def carga(self):
         bandera=True
-        archi=open("MovimientosAbril2024.csv")
+        archi=open("unidad 2\\practica_operativa\\MovimientosAbril2024.csv")
         reader=csv.reader(archi,delimiter=";")
         for fila in reader:
             if bandera==True:

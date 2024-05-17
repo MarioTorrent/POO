@@ -6,7 +6,7 @@ class gestor_cliente:
         self.__lista_clientes=[]
     def carga(self):
         bandera=True
-        archi=open("ClientesFarmaCiudad.csv")
+        archi=open("unidad 2\\practica_operativa\\ClientesFarmaCiudad.csv")
         reader=csv.reader(archi,delimiter=";")
         for fila in reader:
             if bandera==True:

@@ -5,7 +5,7 @@ class gestor_fecha:
     def __init__(self):
         self.__lista_fecha=[]
     def carga(self):
-        archi=open("fechasFutbol.csv")
+        archi=open("unidad 2\\ejercicio_5\\fechasFutbol.csv")
         reader=csv.reader(archi,delimiter=";")
         bandera=True
         for fila in reader:

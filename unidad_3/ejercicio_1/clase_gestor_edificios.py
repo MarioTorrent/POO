@@ -5,7 +5,7 @@ class gestor_edificios:
     def __init__(self):
         self.__edificios=[]
     def carga_archi(self):
-        archi=open("EdificioNorte.csv")
+        archi=open("unidad_3\\ejercicio_1\\EdificioNorte.csv")
         reader=csv.reader(archi,delimiter=";")
         for fila in reader:
             if len(fila)==6:

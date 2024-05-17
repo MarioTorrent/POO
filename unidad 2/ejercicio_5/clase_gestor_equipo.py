@@ -5,7 +5,7 @@ class gestor_equipo:
     def __init__(self):
         self.__lista_equipo=[]
     def carga (self):
-        archi=open("equipos2024.csv")
+        archi=open("unidad 2\\ejercicio_5\\equipos2024.csv")
         reader=csv.reader(archi,delimiter=";")
         bandera=True
         for fila in reader:

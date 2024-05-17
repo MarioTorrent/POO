@@ -5,7 +5,7 @@ class gestor_motos:
     def __init__(self):
         self.__lista_moto=[]
     def agregar_motos(self):
-        archi=open("datosMotos.csv")
+        archi=open("unidad 2\\ejercicio_4\\datosMotos.csv")
         reader=csv.reader(archi,delimiter=";")
         for fila in reader:
             ymoto=moto(fila[0],fila[1],fila[2],int(fila[3]))

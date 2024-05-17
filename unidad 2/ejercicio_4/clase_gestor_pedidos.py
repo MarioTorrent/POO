@@ -8,7 +8,7 @@ class gestor_pedido:
         xpedido=pedido(xpatente,input("ingrese id del pedido:\n"),input("ingrese comida del pedido:\n"),input("ingrese tiempo estimado de entrega:\n"),input("ingrese tiempo real de entrega:\n"),input("ingrese precio del pedido:\n"))
         self.__lista_pedido.append(xpedido)
     def agregar_p_desde_archi(self):
-        archi=open("datosPedidos.csv")
+        archi=open("unidad 2\\ejercicio_4\\datosPedidos.csv")
         reader=csv.reader(archi,delimiter=";")
         for fila in reader:
             ypedido=pedido(fila[0],fila[1],fila[2],int(fila[3]),float(fila[4]),float(fila[5]))
