@@ -17,10 +17,12 @@ class gestor_Ventas:
     #se busca cual es la sucursal que menos recaudo en la semana
     def min_factu(self):
         min=np.sum(self.__ventas[0])
+        smin=0
         for i in range(1, 4):
             if min>np.sum(self.__ventas[i]):
                 min=np.sum(self.__ventas[i])
-        return min
+                smin=i
+        return smin+1
     #se calcula cual es el total recaudado por todas las sucursales
     def total(self):
         return np.sum(self.__ventas)
