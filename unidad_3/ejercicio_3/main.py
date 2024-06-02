@@ -7,7 +7,7 @@ def menu():
     xgestor_de_programas=gestor_programas()
     xgestor_matriculas=gestor_matriculas()
     while aux!=7:    
-        aux=int(input("1_agregar empleado por teclado\n2_agregar programa de capacitacion por teclado\n3_agregar matricula\n4_ingresar id del empleado y ver la duracion de los programas de capacitacion que posee\n5_mostrar los empleados en un programa de capacitacion\n6_informar empleados que han sido atriculados a ningun programa de capacitacion\n7_fin\n"))
+        aux=int(input("1_agregar empleado por teclado\n2_agregar programa de capacitacion por teclado\n3_agregar matricula\n4_ingresar id del empleado y ver la duracion de los programas de capacitacion que posee\n5_mostrar los empleados en un programa de capacitacion\n6_informar empleados que no han sido matriculados a ningun programa de capacitacion\n7_fin\n"))
         if aux==1:
             xgestor_de_empleados.agregar_empleado()
         elif aux==2:
