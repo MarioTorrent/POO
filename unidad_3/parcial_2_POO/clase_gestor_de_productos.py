@@ -13,7 +13,7 @@ class gestor_de_productos:
             if f[0]=="C":
                 xproducto=producto_congelado(f[1],f[2],f[3],float(f[4]),f[5],f[6],float(f[7]),int(f[8]),int(f[9]),int(f[10]),int(f[11]),f[12])
             else:
-                xproducto=producto_refrigerado(f[1],f[2],f[3],f[4],f[5],f[6],f[7],f[8])
+                xproducto=producto_refrigerado(f[1],f[2],f[3],float(f[4]),f[5],f[6],float(f[7]),f[8])
             self.__lista.append(xproducto)
     def agregar_producto(self):
         try:
