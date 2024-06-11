@@ -1,5 +1,5 @@
 from abc import ABC,abstractmethod
-class producto():
+class producto(abs):
     __nombre:str
     __fecha_envasado:str
     __fecha_vencimiento:str

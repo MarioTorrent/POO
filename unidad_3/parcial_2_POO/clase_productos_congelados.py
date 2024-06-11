@@ -15,4 +15,4 @@ class producto_congelado(producto):
     def importe_venta(self):
         return super().get_costo()*1.15
     def mostrar_prod(self):
-        print(super().__str__(),f"\nimporte de venta: {self.importe_venta()}\n----------------------------\n")
+        print(super().__str__(),f"\nimporte de venta: {self.importe_venta():.2f}\n----------------------------\n")

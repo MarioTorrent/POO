@@ -8,12 +8,12 @@ class producto_refrigerado(producto):
     def importe_venta(self):
         mesV=super().get_fecha_V()
         mesV=int(mesV.split("/")[1])
-        mesA=int(str(datetime.date.today()).split("-")[1])
+        fechaA=datetime.date.today()
         imp=0
-        if mesV-mesA<=2:
+        if mesV-fechaA.month<=2:
             imp=super().get_costo()*0.9
         else:
             imp=super().get_costo()*1.01
         return imp
     def mostrar_prod(self):
-        print(super().__str__(),f"\nimporte de venta: {self.importe_venta()}\n----------------------------\n")
+        print(super().__str__(),f"\nimporte de venta: {self.importe_venta():.2f}\n----------------------------\n")
