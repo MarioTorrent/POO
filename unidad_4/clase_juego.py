@@ -4,6 +4,8 @@ from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 import random
+from clase_object_encoder import ObjectEncoder
+import json
 class juego(tk.Tk):
     __botones:list
     __text:object
@@ -19,14 +21,17 @@ class juego(tk.Tk):
     __btn:object
     __nom:StringVar
     __dificultad:int
-    __xgestor:object
+    __xgestor:gestor_jugadores
     __xbtn:object
     __seceuencia_random:list
     __secuencia_clickeada:list
-    def __init__(self,xgestor):
+    __tiempo_restante:int
+    __jsonf:object
+    def __init__(self):
         super().__init__()
         self.config(background="grey")
-        self.__xgestor=xgestor
+        self.__xgestor=gestor_jugadores()
+        self.__jsonf=ObjectEncoder()
         self.geometry("600x600")
         self.rowconfigure(0,weight=1)
         self.rowconfigure(1,weight=20)
@@ -59,6 +64,7 @@ class juego(tk.Tk):
         self.__xbtn=None
         self.__secuencia_clickeada=[]
         self.__seceuencia_random=[]
+        self.__tiempo_restante=5
         self.enter_user()
     def enter_user(self):
         self.__xvent=Toplevel(self)
@@ -75,12 +81,14 @@ class juego(tk.Tk):
         self.__btn=tk.Button(self.__xvent,text="jugar",command=lambda:[self.__xvent.destroy(),self.inicio()])
         self.__btn.pack()
     def inicio(self):
+        self.leer_jugadores()
         self.__lbl_user=ttk.Label(self.__xframe,text=f"usuario: {self.__nom.get()}")
         self.__lbl_user.grid(column=0,row=0,sticky=(W,E,N,S))
         self.__puntos=0
         self.__lbl_P=ttk.Label(self.__xframe,text="puntos: 0")
         self.__lbl_P.grid(column=1,row=0,sticky=(N,S,W))
         self.actualizar_puntos()
+        self.__xcanvas.delete(self.__text)
         for boton in self.__botones:
             self.__xcanvas.itemconfig(boton,outline="white",width=1)
         self.__text=self.__xcanvas.create_text(327,245,text="INICIO",fill="black",font=("Times New Roman",30))
@@ -103,10 +111,9 @@ class juego(tk.Tk):
         self.__xcanvas.tag_unbind(self.__boton_inicio,"<Button-1>")
         self.__xcanvas.tag_unbind(self.__text,"<Button-1>")
         self.__xcanvas.delete(self.__text)
+        self.__tiempo_restante=10
         for boton in self.__botones:
             self.__xcanvas.tag_bind(boton, "<Button-1>",self.click)
-        #if self.__dificultad.get()==2:
-            #self.__tiempo_restante=5
         self.elegir_boton_random()
     def click_inicio(self,event):
         self.__xcanvas.itemconfig(self.__boton_inicio,fill="green")
@@ -121,6 +128,7 @@ class juego(tk.Tk):
                 self.__puntos+=1
                 self.actualizar_puntos()
                 self.__secuencia_clickeada=[]
+                self.__tiempo_restante=10+self.__puntos//3
                 self.elegir_boton_random()
         else:
             self.game_over()
@@ -130,7 +138,9 @@ class juego(tk.Tk):
         fecha_y_hora=datetime.datetime.now()
         self.__seceuencia_random=[]
         self.__secuencia_clickeada=[]
+        self.__xcanvas.delete(self.__text)
         self.__xgestor.agregar_jugador(self.__nom.get(),self.__puntos,fecha_y_hora.date(),fecha_y_hora.time())
+        self.guardar_jugadores()
         self.__xvent=Toplevel(self)
         self.__xvent.resizable(0,0)
         self.__xvent.transient()
@@ -148,6 +158,7 @@ class juego(tk.Tk):
         self.__lbl.grid(column=1,row=1,sticky=(S,W,N,E))
         self.__btn=tk.Button(self.__xvent,text="volver a intentarlo",command=lambda:[self.__xvent.destroy(),self.enter_user()])
         self.__btn.grid(column=1,row=2)
+        self.__lbl_P.destroy()
     def mostrar_pos(self):
         self.__xvent=Toplevel(self)
         self.__xvent.resizable(0,0)
@@ -160,10 +171,28 @@ class juego(tk.Tk):
         i=0
         for boton in self.__seceuencia_random:
             i+=400
-            #x=self.__seceuencia_random[j]
             self.__xcanvas.after(100+i,lambda b=boton: self.__xcanvas.itemconfig(b,outline="black",width=5))
             self.__xcanvas.after(350+i,lambda b=boton: self.__xcanvas.itemconfig(b,outline="white",width=1))
+        if self.__dificultad.get()>=2:
+            if not self.__text:
+                self.__text = self.__xcanvas.create_text(327, 245, text=f"{self.__tiempo_restante}", fill="black", font=("Times New Roman", 30), tag="time")
+            self.__xcanvas.itemconfig(self.__text, text=f"{self.__tiempo_restante}")
+            self.after(1000,self.timer)
+    def timer(self):
+        print(f"{self.__tiempo_restante}")
+        self.__tiempo_restante-=1
+        self.__text=self.__xcanvas.itemconfig(self.__text,text=f"{self.__tiempo_restante}")
+        if self.__tiempo_restante>0:
+            self.after(1000,self.timer)
+            self.update()
+        else:
+            self.game_over()
+    def leer_jugadores(self):
+        diccionario=self.__jsonf.leerJSONarchivo("unidad_4\\pysimonpuntajes.json")
+        self.__xgestor=self.__jsonf.decodificador_diccionario(diccionario)
+    def guardar_jugadores(self):
+        d=self.__xgestor.toJSON()
+        self.__jsonf.guardarJSONarchivo(d,"unidad_4\\pysimonpuntajes.json")
 if __name__=="__main__":
-    xgestor=gestor_jugadores()
-    xjuego=juego(xgestor)
+    xjuego=juego()
     xjuego.mainloop()
