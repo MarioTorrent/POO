@@ -5,8 +5,6 @@ class jugador():
     __puntos:int
     __fecha:str
     __hora:str
-    def __str__(self):
-        return f"{self.__nombre}".center(25)+f"{self.__puntos}".center(25)+f"{self.__fecha}".center(25)+f"{self.__hora}".center(25)
     def __init__(self,nom,puntos,fecha,hora):
         self.__nombre=nom
         self.__puntos=puntos
@@ -19,3 +17,5 @@ class jugador():
     def toJSON(self):
         d = dict(__class__=self.__class__.__name__ , __atributos__=dict(nombre=self.__nombre,puntos=self.__puntos,fecha=self.__fecha,hora=self.__hora))
         return d
+    def get_datos(self):
+        return [self.__nombre,self.__puntos,self.__fecha,self.__hora]

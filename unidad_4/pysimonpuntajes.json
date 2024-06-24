@@ -4,10 +4,10 @@
         {
             "__class__": "jugador",
             "__atributos__": {
-                "nombre": "m",
-                "puntos": 1,
-                "fecha": "2024-06-21",
-                "hora": "11:58:36"
+                "nombre": "mario",
+                "puntos": 13,
+                "fecha": "2024-06-23",
+                "hora": "22:05:15"
             }
         }
     ]

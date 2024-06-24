@@ -3,7 +3,7 @@ import json
 from clase_gestor_jugadores import gestor_jugadores,jugador
 class ObjectEncoder(object):
     def decodificador_diccionario(self,d):
-        if __name__ not in d:
+        if "__class__" not in d:
             return d
         else:
             class_name=d['__class__']
@@ -16,8 +16,8 @@ class ObjectEncoder(object):
                     djugador=jugadores[i]
                     class_name=djugador.pop("__class__")
                     class_=eval(class_name)
-                    atributos=djugador["atributos"]
-                    xjugador=class_(**atributos)
+                    atributos=djugador['__atributos__']
+                    xjugador=class_(atributos["nombre"],atributos["puntos"],atributos["fecha"],atributos["hora"])
                     xgestor.agregar_jugador_json(xjugador)
             return xgestor
     def guardarJSONarchivo(self,diccionario,archivo):

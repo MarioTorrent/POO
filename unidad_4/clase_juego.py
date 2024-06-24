@@ -29,6 +29,7 @@ class juego(tk.Tk):
     __jsonf:object
     def __init__(self):
         super().__init__()
+        self.iconbitmap("unidad_4\static\pato_icono-removebg-preview.ico")
         self.config(background="grey")
         self.__xgestor=gestor_jugadores()
         self.__jsonf=ObjectEncoder()
@@ -65,9 +66,11 @@ class juego(tk.Tk):
         self.__secuencia_clickeada=[]
         self.__seceuencia_random=[]
         self.__tiempo_restante=5
+        self.leer_jugadores()
         self.enter_user()
     def enter_user(self):
         self.__xvent=Toplevel(self)
+        self.__xvent.iconbitmap("unidad_4\static\pato_icono-removebg-preview.ico")
         self.__xvent.resizable(0,0)
         self.__xvent.grab_set()
         self.__xvent.focus_force()
@@ -81,7 +84,6 @@ class juego(tk.Tk):
         self.__btn=tk.Button(self.__xvent,text="jugar",command=lambda:[self.__xvent.destroy(),self.inicio()])
         self.__btn.pack()
     def inicio(self):
-        self.leer_jugadores()
         self.__lbl_user=ttk.Label(self.__xframe,text=f"usuario: {self.__nom.get()}")
         self.__lbl_user.grid(column=0,row=0,sticky=(W,E,N,S))
         self.__puntos=0
@@ -105,7 +107,7 @@ class juego(tk.Tk):
         xmenu = tk.Menu(self.__xbtn, tearoff=0)
         self.__xbtn.config(menu=xmenu)
         xmenu.add_radiobutton(label="tabla de posiciones", command=lambda:self.mostrar_pos())
-        xmenu.add_radiobutton(label="SALIR", command=self.destroy)
+        xmenu.add_radiobutton(label="SALIR", command=lambda:[self.guardar_jugadores(),self.destroy()])
         self.__xbtn.grid(column=0,row=1,sticky=(N,W))
     def start(self,event):
         self.__xcanvas.tag_unbind(self.__boton_inicio,"<Button-1>")
@@ -140,7 +142,6 @@ class juego(tk.Tk):
         self.__secuencia_clickeada=[]
         self.__xcanvas.delete(self.__text)
         self.__xgestor.agregar_jugador(self.__nom.get(),self.__puntos,fecha_y_hora.date(),fecha_y_hora.time())
-        self.guardar_jugadores()
         self.__xvent=Toplevel(self)
         self.__xvent.resizable(0,0)
         self.__xvent.transient()
@@ -161,8 +162,8 @@ class juego(tk.Tk):
         self.__lbl_P.destroy()
     def mostrar_pos(self):
         self.__xvent=Toplevel(self)
+        self.__xvent.iconbitmap("unidad_4\static\pato_icono-removebg-preview.ico")
         self.__xvent.resizable(0,0)
-        self.__xvent.geometry("400x400+100+100")
         self.transient()
         self.__xgestor.mostrar_posiciones(self.__xvent)
     def elegir_boton_random(self):
@@ -188,8 +189,12 @@ class juego(tk.Tk):
         else:
             self.game_over()
     def leer_jugadores(self):
-        diccionario=self.__jsonf.leerJSONarchivo("unidad_4\\pysimonpuntajes.json")
-        self.__xgestor=self.__jsonf.decodificador_diccionario(diccionario)
+        try:
+            diccionario=self.__jsonf.leerJSONarchivo("unidad_4\\pysimonpuntajes.json")
+        except json.JSONDecodeError:
+            self.__xgestor=gestor_jugadores()
+        else:
+            self.__xgestor=self.__jsonf.decodificador_diccionario(diccionario)
     def guardar_jugadores(self):
         d=self.__xgestor.toJSON()
         self.__jsonf.guardarJSONarchivo(d,"unidad_4\\pysimonpuntajes.json")
