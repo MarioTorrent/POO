@@ -1,0 +1,12 @@
+{% extends "base_template.html" %}
+{% block title %}llegada de transporte{%endblock%}
+{% block content %}
+    <div id="central">
+        <form method="post">
+            {% for transporte in xtransportes %}
+                <input type="checkbox" name="transportes" value="{{transporte.id}}">numero de transporte:{{transporte.numerotransporte}}...fecha y hora de salida:{{transporte.fechahorasalida}}<br>
+            {% endfor %}
+            <button type="submit">guardar</button>
+        </form>
+    </div>
+{%endblock%}

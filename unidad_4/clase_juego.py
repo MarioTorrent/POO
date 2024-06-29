@@ -65,7 +65,7 @@ class juego(tk.Tk):
         self.__xbtn=None
         self.__secuencia_clickeada=[]
         self.__seceuencia_random=[]
-        self.__tiempo_restante=5
+        self.__tiempo_restante=10
         self.leer_jugadores()
         self.enter_user()
     def enter_user(self):
@@ -116,6 +116,11 @@ class juego(tk.Tk):
         self.__tiempo_restante=10
         for boton in self.__botones:
             self.__xcanvas.tag_bind(boton, "<Button-1>",self.click)
+        if self.__dificultad.get()>=2:
+            if not self.__text:
+                self.__text = self.__xcanvas.create_text(327, 245, text=f"{self.__tiempo_restante}", fill="black", font=("Times New Roman", 30), tag="time")
+            self.__xcanvas.itemconfig(self.__text, text=f"{self.__tiempo_restante}")
+            self.after(1000,self.timer)
         self.elegir_boton_random()
     def click_inicio(self,event):
         self.__xcanvas.itemconfig(self.__boton_inicio,fill="green")
@@ -130,7 +135,7 @@ class juego(tk.Tk):
                 self.__puntos+=1
                 self.actualizar_puntos()
                 self.__secuencia_clickeada=[]
-                self.__tiempo_restante=10+self.__puntos//3
+                self.__tiempo_restante=15+self.__puntos//3
                 self.elegir_boton_random()
         else:
             self.game_over()
@@ -167,6 +172,9 @@ class juego(tk.Tk):
         self.transient()
         self.__xgestor.mostrar_posiciones(self.__xvent)
     def elegir_boton_random(self):
+        if self.__dificultad.get()==3:
+            self.__boton_random=random.choice(self.__botones)
+            self.__seceuencia_random.append(self.__boton_random)
         self.__boton_random=random.choice(self.__botones)
         self.__seceuencia_random.append(self.__boton_random)
         i=0
@@ -174,11 +182,6 @@ class juego(tk.Tk):
             i+=400
             self.__xcanvas.after(100+i,lambda b=boton: self.__xcanvas.itemconfig(b,outline="black",width=5))
             self.__xcanvas.after(350+i,lambda b=boton: self.__xcanvas.itemconfig(b,outline="white",width=1))
-        if self.__dificultad.get()>=2:
-            if not self.__text:
-                self.__text = self.__xcanvas.create_text(327, 245, text=f"{self.__tiempo_restante}", fill="black", font=("Times New Roman", 30), tag="time")
-            self.__xcanvas.itemconfig(self.__text, text=f"{self.__tiempo_restante}")
-            self.after(1000,self.timer)
     def timer(self):
         print(f"{self.__tiempo_restante}")
         self.__tiempo_restante-=1

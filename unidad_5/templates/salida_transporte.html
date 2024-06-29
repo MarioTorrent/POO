@@ -1,0 +1,12 @@
+{% extends "base_template.html" %}
+{% block title %}salida de transporte{%endblock%}
+{% block content %}
+    <div id="central">
+        <form method="post" action="{{url_for('salida_transporte',id=id)}}">
+            {% for paquete in paquetes %}
+                <input type="checkbox" id='xpaquetes' name='xpaquetes' value="{{paquete.id}}">numero de envio:{{paquete.numeroenvio}}...direccion del destinatario:{{paquete.dirdestinatario}}<br>
+            {% endfor %}
+            <button type="submit">guardar</button>
+        </form>
+    </div>
+{%endblock%}

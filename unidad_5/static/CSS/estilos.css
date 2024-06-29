@@ -1,0 +1,54 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Noto SansJP", sans-serif, Arial;
+}
+div{
+    margin: 0 auto;
+    text-align: center;
+}
+#menu{
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
+    padding-top: 400px;
+}
+select{
+    background: aquamarine;
+    height: 30px;
+}
+#main{
+    background-image: url(/static/imagenes/bg.jpg);
+    background-size: contain;
+    width: 80em;
+    height: 80rem;
+}
+#titulo{
+    color:black;
+    font-style: italic;
+    font-weight: bold;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-size-adjust: 300px;
+}
+button{
+    margin: 7px;
+    height: 40px;
+    width: 300px;
+    font-style: italic;
+    font-weight: bold;
+    background: rgb(40, 215, 215);
+}
+#central{
+    padding-top: 300px;
+}
+label{
+    padding: 30px;
+    margin: 30px;
+    text-align: center;
+}
+input{
+    background: #11b9df;
+}
+a{
+    height: 70px;
+}

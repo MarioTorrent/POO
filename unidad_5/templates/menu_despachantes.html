@@ -1,0 +1,9 @@
+{% extends "base_template.html"%}
+{% block title %}menu despachantes{%endblock%}
+{% block content %}
+<div id="central">
+    <a href="{{url_for('registrar_paquete')}}"><button>Registrar paquete</button></a><br>
+    <a href="{{url_for('seleccion_salidas')}}"><button>Salida de transporte</button></a><br>
+    <a href="{{url_for('llegada_transporte')}}"><button>Llegada de transporte</button></a><br>
+</div>
+{%endblock%}

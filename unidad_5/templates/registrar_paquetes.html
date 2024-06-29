@@ -1,0 +1,15 @@
+{% extends "base_template.html" %}
+{% block title %}registro de paquetes{%endblock%}
+{% block content %}
+<div id="central">
+<form method="post" action="{{url_for('registrar_paquete')}}">
+    <label for="peso" >peso</label><br>
+    <input type="text" id="peso" name="peso" required><br><br>
+    <label for="nombre_destinatario" >nombre del destinatario</label><br>
+    <input type="text" id="nombre_destinatario" name="nombre_destinatario" required><br><br>
+    <label for="direccion_destinatario" >direccion del destinatario</label><br>
+    <input type="text" id="peso" name="direccion_destinatario" required><br><br>
+    <button type="submit">registrar paquete</button>
+</form>
+</div>
+{%endblock%}

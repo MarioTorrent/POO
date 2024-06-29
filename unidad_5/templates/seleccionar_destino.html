@@ -1,0 +1,13 @@
+{% extends "base_template.html"%}
+{% block title %}LogiPack{% endblock %}
+{% block content %}
+    <div id="menu">
+        <label for="xsucursal">seleccione una sucursal de destino:</label><br><br>
+        <select name="xsucursal" id="xsucursal" onchange="window.location.href = this.value;">
+            <option>sucursales</option>
+            {% for sucursal in sucursales%}
+                <option value="{{url_for('salida_transporte',id=sucursal.id)}}">numero:{{sucursal.numero}} provincia:{{sucursal.provincia}} localidad:{{sucursal.localidad}}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% endblock %}
